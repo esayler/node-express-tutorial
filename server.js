@@ -1,13 +1,30 @@
 import express from 'express'
+import path from 'path'
 import morgan from 'morgan'
 import chalk from 'chalk'
 const app = express()
 
 app.use(morgan('dev'))
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
   console.log(chalk.yellow('Got a GET request for the homepage'))
   res.send('Hello GET')
+})
+
+app.get('/index.html', function (req, res) {
+  res.sendFile(path.resolve(__dirname, 'index.html'))
+})
+
+app.get('/process_get', (req, res) => {
+  // Prepare output in JSON format
+  const response = {
+    first_name: req.query.first_name,
+    last_name: req.query.last_name,
+  }
+
+  console.log(chalk.green(JSON.stringify(response)))
+  res.end(JSON.stringify(response))
 })
 
 app.post('/', (req, res) => {
@@ -23,11 +40,6 @@ app.delete('/del_user', (req, res) => {
 app.get('/list_user', (req, res) => {
   console.log(chalk.yellow('Got a GET request for /list_user'))
   res.send('Page Listing')
-})
-
-app.get('/ab*cd', (req, res) => {
-  console.log(chalk.yellow('Got a GET request for /ab*cd'))
-  res.send('Page Pattern Match')
 })
 
 const server = app.listen(8081, _ => {
