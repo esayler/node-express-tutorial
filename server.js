@@ -5,17 +5,20 @@ import chalk from 'chalk'
 import fs from 'fs'
 import multer from 'multer'
 import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 
 const app = express()
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.use(morgan('dev'))
 app.use(express.static('public'))
+app.use(cookieParser())
 
 const upload = multer({ dest: 'uploads/' })
 
 app.get('/', (req, res) => {
   console.log(chalk.yellow('Got a GET request for the homepage'))
+  console.log(chalk.blue(`Cookies: ${req.cookies}`))
   res.send('Hello GET')
 })
 
