@@ -1,15 +1,12 @@
 {
   "parser": "babel-eslint",
-  "extends": ["standard", "standard-react"],
+  "extends": ["standard"],
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
     "space-before-function-paren": ["error", {
         "anonymous": "always",
         "named": "never",
         "asyncArrow": "ignore"
-    }],
-    "standard/object-curly-even-spacing": [2, "either"],
-    "standard/array-bracket-even-spacing": [2, "either"],
-    "standard/computed-property-even-spacing": [2, "even"]
+    }]
   }
 }
